@@ -1,0 +1,393 @@
+// входные данные в виде [пробел][число в римской си][n звездочек, n = число, на которое нужно сдвинуть шифр]
+
+00, ,<,check
+
+// // проверяем, нужен ли сдвиг // //
+check,I,<,st0 check,V,<,st0 check,X,<,st0 check,L,<,st0 check,C,<,st0 check,D,<,st0 check,M,<,st0
+check,*,=,d1a
+
+// // удаляем 1 полный цикл сдвига // //
+d1a,*, ,d1a d1a, ,<,d1b   d1b,*,=,d2a
+d2a,*, ,d2a d2a, ,<,d2b   d2b,*,=,d3a
+d3a,*, ,d3a d3a, ,<,d3b   d3b,*,=,d4a
+d4a,*, ,d4a d4a, ,<,d4b   d4b,*,=,d5a
+d5a,*, ,d5a d5a, ,<,d5b   d5b,*,=,d6a
+d6a,*, ,d6a d6a, ,<,d6b   d6b,*,=,d7a
+d7a,*, ,d7a d7a, ,<,check
+
+// // переходим в стадию копирования // //
+d1b,I,<,st1 d1b,V,<,st1 d1b,X,<,st1 d1b,L,<,st1 d1b,C,<,st1 d1b,D,<,st1 d1b,M,<,st1
+d2b,I,<,st2 d2b,V,<,st2 d2b,X,<,st2 d2b,L,<,st2 d2b,C,<,st2 d2b,D,<,st2 d2b,M,<,st2
+d3b,I,<,st3 d3b,V,<,st3 d3b,X,<,st3 d3b,L,<,st3 d3b,C,<,st3 d3b,D,<,st3 d3b,M,<,st3
+d4b,I,<,st4 d4b,V,<,st4 d4b,X,<,st4 d4b,L,<,st4 d4b,C,<,st4 d4b,D,<,st4 d4b,M,<,st4
+d5b,I,<,st5 d5b,V,<,st5 d5b,X,<,st5 d5b,L,<,st5 d5b,C,<,st5 d5b,D,<,st5 d5b,M,<,st5
+d6b,I,<,st6 d6b,V,<,st6 d6b,X,<,st6 d6b,L,<,st6 d6b,C,<,st6 d6b,D,<,st6 d6b,M,<,st6
+
+//...........................//
+
+// // копируем без сдвига // //
+// ставим звездочку в начало
+st0,I,<,st0 st0,V,<,st0 st0,X,<,st0 st0,L,<,st0 st0,C,<,st0 st0,D,<,st0 st0,M,<,st0 st0, ,*,st0 st0,*,>,cp0a
+// смотрим, что переносить
+cp0a,I,<,smvI0a cp0a,V,<,smvV0a cp0a,X,<,smvX0a cp0a,L,<,smvL0a cp0a,C,<,smvC0a cp0a,D,<,smvD0a cp0a,M,<,smvM0a
+// возвращаемся к звездочке
+rt0,I,<,rt0 rt0,V,<,rt0 rt0,X,<,rt0 rt0,L,<,rt0 rt0,C,<,rt0 rt0,D,<,rt0 rt0,M,<,rt0 rt0, ,<,rt0 rt0,*,>,cp0a
+
+// // перенос I --->
+smvI0a,*,I,smvI0a smvI0a,I,>,schI02   schI02,I,*,plI0a // двигаем звездочку
+plI0a,*,>,plI0a plI0a,I,>,plI0a plI0a,V,>,plI0a plI0a,X,>,plI0a plI0a,L,>,plI0a plI0a,C,>,plI0a plI0a,D,>,plI0a plI0a,M,>,plI0a plI0a, ,>,plI0s
+plI0s, ,>,plI0b // пропускаем пробел
+plI0b,I,>,plI0b plI0b,V,>,plI0b plI0b,X,>,plI0b plI0b,L,>,plI0b plI0b,C,>,plI0b plI0b,D,>,plI0b plI0b,M,>,plI0b plI0b, ,I,rt0
+
+// // перенос V --->
+smvV0a,*,V,smvV0a smvV0a,V,>,schV02   schV02,V,*,plV0a // двигаем звездочку
+plV0a,*,>,plV0a plV0a,I,>,plV0a plV0a,V,>,plV0a plV0a,X,>,plV0a plV0a,L,>,plV0a plV0a,C,>,plV0a plV0a,D,>,plV0a plV0a,M,>,plV0a plV0a, ,>,plV0s
+plV0s, ,>,plV0b // пропускаем пробел
+plV0b,I,>,plV0b plV0b,V,>,plV0b plV0b,X,>,plV0b plV0b,L,>,plV0b plV0b,C,>,plV0b plV0b,D,>,plV0b plV0b,M,>,plV0b plV0b, ,V,rt0
+
+// // перенос X --->
+smvX0a,*,X,smvX0a smvX0a,X,>,schX02   schX02,X,*,plX0a // двигаем звездочку
+plX0a,*,>,plX0a plX0a,I,>,plX0a plX0a,V,>,plX0a plX0a,X,>,plX0a plX0a,L,>,plX0a plX0a,C,>,plX0a plX0a,D,>,plX0a plX0a,M,>,plX0a plX0a, ,>,plX0s
+plX0s, ,>,plX0b // пропускаем пробел
+plX0b,I,>,plX0b plX0b,V,>,plX0b plX0b,X,>,plX0b plX0b,L,>,plX0b plX0b,C,>,plX0b plX0b,D,>,plX0b plX0b,M,>,plX0b plX0b, ,X,rt0
+
+// // перенос L --->
+smvL0a,*,L,smvL0a smvL0a,L,>,schL02   schL02,L,*,plL0a // двигаем звездочку
+plL0a,*,>,plL0a plL0a,I,>,plL0a plL0a,V,>,plL0a plL0a,X,>,plL0a plL0a,L,>,plL0a plL0a,C,>,plL0a plL0a,D,>,plL0a plL0a,M,>,plL0a plL0a, ,>,plL0s
+plL0s, ,>,plL0b // пропускаем пробел
+plL0b,I,>,plL0b plL0b,V,>,plL0b plL0b,X,>,plL0b plL0b,L,>,plL0b plL0b,C,>,plL0b plL0b,D,>,plL0b plL0b,M,>,plL0b plL0b, ,L,rt0
+
+// // перенос C --->
+smvC0a,*,C,smvC0a smvC0a,C,>,schC02   schC02,C,*,plC0a // двигаем звездочку
+plC0a,*,>,plC0a plC0a,I,>,plC0a plC0a,V,>,plC0a plC0a,X,>,plC0a plC0a,L,>,plC0a plC0a,C,>,plC0a plC0a,D,>,plC0a plC0a,M,>,plC0a plC0a, ,>,plC0s
+plC0s, ,>,plC0b // пропускаем пробел
+plC0b,I,>,plC0b plC0b,V,>,plC0b plC0b,X,>,plC0b plC0b,L,>,plC0b plC0b,C,>,plC0b plC0b,D,>,plC0b plC0b,M,>,plC0b plC0b, ,C,rt0
+
+// // перенос D --->
+smvD0a,*,D,smvD0a smvD0a,D,>,schD02   schD02,D,*,plD0a // двигаем звездочку
+plD0a,*,>,plD0a plD0a,I,>,plD0a plD0a,V,>,plD0a plD0a,X,>,plD0a plD0a,L,>,plD0a plD0a,C,>,plD0a plD0a,D,>,plD0a plD0a,M,>,plD0a plD0a, ,>,plD0s
+plD0s, ,>,plD0b // пропускаем пробел
+plD0b,I,>,plD0b plD0b,V,>,plD0b plD0b,X,>,plD0b plD0b,L,>,plD0b plD0b,C,>,plD0b plD0b,D,>,plD0b plD0b,M,>,plD0b plD0b, ,D,rt0
+
+// // перенос M --->
+smvM0a,*,M,smvM0a smvM0a,M,>,schM02   schM02,M,*,plM0a // двигаем звездочку
+plM0a,*,>,plM0a plM0a,I,>,plM0a plM0a,V,>,plM0a plM0a,X,>,plM0a plM0a,L,>,plM0a plM0a,C,>,plM0a plM0a,D,>,plM0a plM0a,M,>,plM0a plM0a, ,>,plM0s
+plM0s, ,>,plM0b // пропускаем пробел
+plM0b,I,>,plM0b plM0b,V,>,plM0b plM0b,X,>,plM0b plM0b,L,>,plM0b plM0b,C,>,plM0b plM0b,D,>,plM0b plM0b,M,>,plM0b plM0b, ,M,rt0
+
+//.............................//
+
+// // копируем со сдвигом 1 // //
+// ставим звездочку в начало
+st1,I,<,st1 st1,V,<,st1 st1,X,<,st1 st1,L,<,st1 st1,C,<,st1 st1,D,<,st1 st1,M,<,st1 st1, ,*,st1 st1,*,>,cp1a
+// смотрим, что переносить
+cp1a,I,<,smvI1a cp1a,V,<,smvV1a cp1a,X,<,smvX1a cp1a,L,<,smvL1a cp1a,C,<,smvC1a cp1a,D,<,smvD1a cp1a,M,<,smvM1a
+// возвращаемся к звездочке
+rt1,I,<,rt1 rt1,V,<,rt1 rt1,X,<,rt1 rt1,L,<,rt1 rt1,C,<,rt1 rt1,D,<,rt1 rt1,M,<,rt1 rt1, ,<,rt1 rt1,*,>,cp1a
+
+// // перенос I --->
+smvI1a,*,I,smvI1a smvI1a,I,>,schI12   schI12,I,*,plI1a // двигаем звездочку
+plI1a,*,>,plI1a plI1a,I,>,plI1a plI1a,V,>,plI1a plI1a,X,>,plI1a plI1a,L,>,plI1a plI1a,C,>,plI1a plI1a,D,>,plI1a plI1a,M,>,plI1a plI1a, ,>,plI1s
+plI1s, ,>,plI1b // пропускаем пробел
+plI1b,I,>,plI1b plI1b,V,>,plI1b plI1b,X,>,plI1b plI1b,L,>,plI1b plI1b,C,>,plI1b plI1b,D,>,plI1b plI1b,M,>,plI1b plI1b, ,V,rt1
+
+// // перенос V --->
+smvV1a,*,V,smvV1a smvV1a,V,>,schV12   schV12,V,*,plV1a // двигаем звездочку
+plV1a,*,>,plV1a plV1a,I,>,plV1a plV1a,V,>,plV1a plV1a,X,>,plV1a plV1a,L,>,plV1a plV1a,C,>,plV1a plV1a,D,>,plV1a plV1a,M,>,plV1a plV1a, ,>,plV1s
+plV1s, ,>,plV1b // пропускаем пробел
+plV1b,I,>,plV1b plV1b,V,>,plV1b plV1b,X,>,plV1b plV1b,L,>,plV1b plV1b,C,>,plV1b plV1b,D,>,plV1b plV1b,M,>,plV1b plV1b, ,X,rt1
+
+// // перенос X --->
+smvX1a,*,X,smvX1a smvX1a,X,>,schX12   schX12,X,*,plX1a // двигаем звездочку
+plX1a,*,>,plX1a plX1a,I,>,plX1a plX1a,V,>,plX1a plX1a,X,>,plX1a plX1a,L,>,plX1a plX1a,C,>,plX1a plX1a,D,>,plX1a plX1a,M,>,plX1a plX1a, ,>,plX1s
+plX1s, ,>,plX1b // пропускаем пробел
+plX1b,I,>,plX1b plX1b,V,>,plX1b plX1b,X,>,plX1b plX1b,L,>,plX1b plX1b,C,>,plX1b plX1b,D,>,plX1b plX1b,M,>,plX1b plX1b, ,L,rt1
+
+// // перенос L --->
+smvL1a,*,L,smvL1a smvL1a,L,>,schL12   schL12,L,*,plL1a // двигаем звездочку
+plL1a,*,>,plL1a plL1a,I,>,plL1a plL1a,V,>,plL1a plL1a,X,>,plL1a plL1a,L,>,plL1a plL1a,C,>,plL1a plL1a,D,>,plL1a plL1a,M,>,plL1a plL1a, ,>,plL1s
+plL1s, ,>,plL1b // пропускаем пробел
+plL1b,I,>,plL1b plL1b,V,>,plL1b plL1b,X,>,plL1b plL1b,L,>,plL1b plL1b,C,>,plL1b plL1b,D,>,plL1b plL1b,M,>,plL1b plL1b, ,C,rt1
+
+// // перенос C --->
+smvC1a,*,C,smvC1a smvC1a,C,>,schC12   schC12,C,*,plC1a // двигаем звездочку
+plC1a,*,>,plC1a plC1a,I,>,plC1a plC1a,V,>,plC1a plC1a,X,>,plC1a plC1a,L,>,plC1a plC1a,C,>,plC1a plC1a,D,>,plC1a plC1a,M,>,plC1a plC1a, ,>,plC1s
+plC1s, ,>,plC1b // пропускаем пробел
+plC1b,I,>,plC1b plC1b,V,>,plC1b plC1b,X,>,plC1b plC1b,L,>,plC1b plC1b,C,>,plC1b plC1b,D,>,plC1b plC1b,M,>,plC1b plC1b, ,D,rt1
+
+// // перенос D --->
+smvD1a,*,D,smvD1a smvD1a,D,>,schD12   schD12,D,*,plD1a // двигаем звездочку
+plD1a,*,>,plD1a plD1a,I,>,plD1a plD1a,V,>,plD1a plD1a,X,>,plD1a plD1a,L,>,plD1a plD1a,C,>,plD1a plD1a,D,>,plD1a plD1a,M,>,plD1a plD1a, ,>,plD1s
+plD1s, ,>,plD1b // пропускаем пробел
+plD1b,I,>,plD1b plD1b,V,>,plD1b plD1b,X,>,plD1b plD1b,L,>,plD1b plD1b,C,>,plD1b plD1b,D,>,plD1b plD1b,M,>,plD1b plD1b, ,M,rt1
+
+// // перенос M --->
+smvM1a,*,M,smvM1a smvM1a,M,>,schM12   schM12,M,*,plM1a // двигаем звездочку
+plM1a,*,>,plM1a plM1a,I,>,plM1a plM1a,V,>,plM1a plM1a,X,>,plM1a plM1a,L,>,plM1a plM1a,C,>,plM1a plM1a,D,>,plM1a plM1a,M,>,plM1a plM1a, ,>,plM1s
+plM1s, ,>,plM1b // пропускаем пробел
+plM1b,I,>,plM1b plM1b,V,>,plM1b plM1b,X,>,plM1b plM1b,L,>,plM1b plM1b,C,>,plM1b plM1b,D,>,plM1b plM1b,M,>,plM1b plM1b, ,I,rt1
+
+//.............................//
+
+// // копируем со сдвигом 2 // //
+// ставим звездочку в начало
+st2,I,<,st2 st2,V,<,st2 st2,X,<,st2 st2,L,<,st2 st2,C,<,st2 st2,D,<,st2 st2,M,<,st2 st2, ,*,st2 st2,*,>,cp2a
+// смотрим, что переносить
+cp2a,I,<,smvI2a cp2a,V,<,smvV2a cp2a,X,<,smvX2a cp2a,L,<,smvL2a cp2a,C,<,smvC2a cp2a,D,<,smvD2a cp2a,M,<,smvM2a
+// возвращаемся к звездочке
+rt2,I,<,rt2 rt2,V,<,rt2 rt2,X,<,rt2 rt2,L,<,rt2 rt2,C,<,rt2 rt2,D,<,rt2 rt2,M,<,rt2 rt2, ,<,rt2 rt2,*,>,cp2a
+
+// // перенос I --->
+smvI2a,*,I,smvI2a smvI2a,I,>,schI22   schI22,I,*,plI2a // двигаем звездочку
+plI2a,*,>,plI2a plI2a,I,>,plI2a plI2a,V,>,plI2a plI2a,X,>,plI2a plI2a,L,>,plI2a plI2a,C,>,plI2a plI2a,D,>,plI2a plI2a,M,>,plI2a plI2a, ,>,plI2s
+plI2s, ,>,plI2b // пропускаем пробел
+plI2b,I,>,plI2b plI2b,V,>,plI2b plI2b,X,>,plI2b plI2b,L,>,plI2b plI2b,C,>,plI2b plI2b,D,>,plI2b plI2b,M,>,plI2b plI2b, ,X,rt2
+
+// // перенос V --->
+smvV2a,*,V,smvV2a smvV2a,V,>,schV22   schV22,V,*,plV2a // двигаем звездочку
+plV2a,*,>,plV2a plV2a,I,>,plV2a plV2a,V,>,plV2a plV2a,X,>,plV2a plV2a,L,>,plV2a plV2a,C,>,plV2a plV2a,D,>,plV2a plV2a,M,>,plV2a plV2a, ,>,plV2s
+plV2s, ,>,plV2b // пропускаем пробел
+plV2b,I,>,plV2b plV2b,V,>,plV2b plV2b,X,>,plV2b plV2b,L,>,plV2b plV2b,C,>,plV2b plV2b,D,>,plV2b plV2b,M,>,plV2b plV2b, ,L,rt2
+
+// // перенос X --->
+smvX2a,*,X,smvX2a smvX2a,X,>,schX22   schX22,X,*,plX2a // двигаем звездочку
+plX2a,*,>,plX2a plX2a,I,>,plX2a plX2a,V,>,plX2a plX2a,X,>,plX2a plX2a,L,>,plX2a plX2a,C,>,plX2a plX2a,D,>,plX2a plX2a,M,>,plX2a plX2a, ,>,plX2s
+plX2s, ,>,plX2b // пропускаем пробел
+plX2b,I,>,plX2b plX2b,V,>,plX2b plX2b,X,>,plX2b plX2b,L,>,plX2b plX2b,C,>,plX2b plX2b,D,>,plX2b plX2b,M,>,plX2b plX2b, ,C,rt2
+
+// // перенос L --->
+smvL2a,*,L,smvL2a smvL2a,L,>,schL22   schL22,L,*,plL2a // двигаем звездочку
+plL2a,*,>,plL2a plL2a,I,>,plL2a plL2a,V,>,plL2a plL2a,X,>,plL2a plL2a,L,>,plL2a plL2a,C,>,plL2a plL2a,D,>,plL2a plL2a,M,>,plL2a plL2a, ,>,plL2s
+plL2s, ,>,plL2b // пропускаем пробел
+plL2b,I,>,plL2b plL2b,V,>,plL2b plL2b,X,>,plL2b plL2b,L,>,plL2b plL2b,C,>,plL2b plL2b,D,>,plL2b plL2b,M,>,plL2b plL2b, ,D,rt2
+
+// // перенос C --->
+smvC2a,*,C,smvC2a smvC2a,C,>,schC22   schC22,C,*,plC2a // двигаем звездочку
+plC2a,*,>,plC2a plC2a,I,>,plC2a plC2a,V,>,plC2a plC2a,X,>,plC2a plC2a,L,>,plC2a plC2a,C,>,plC2a plC2a,D,>,plC2a plC2a,M,>,plC2a plC2a, ,>,plC2s
+plC2s, ,>,plC2b // пропускаем пробел
+plC2b,I,>,plC2b plC2b,V,>,plC2b plC2b,X,>,plC2b plC2b,L,>,plC2b plC2b,C,>,plC2b plC2b,D,>,plC2b plC2b,M,>,plC2b plC2b, ,M,rt2
+
+// // перенос D --->
+smvD2a,*,D,smvD2a smvD2a,D,>,schD22   schD22,D,*,plD2a // двигаем звездочку
+plD2a,*,>,plD2a plD2a,I,>,plD2a plD2a,V,>,plD2a plD2a,X,>,plD2a plD2a,L,>,plD2a plD2a,C,>,plD2a plD2a,D,>,plD2a plD2a,M,>,plD2a plD2a, ,>,plD2s
+plD2s, ,>,plD2b // пропускаем пробел
+plD2b,I,>,plD2b plD2b,V,>,plD2b plD2b,X,>,plD2b plD2b,L,>,plD2b plD2b,C,>,plD2b plD2b,D,>,plD2b plD2b,M,>,plD2b plD2b, ,I,rt2
+
+// // перенос M --->
+smvM2a,*,M,smvM2a smvM2a,M,>,schM22   schM22,M,*,plM2a // двигаем звездочку
+plM2a,*,>,plM2a plM2a,I,>,plM2a plM2a,V,>,plM2a plM2a,X,>,plM2a plM2a,L,>,plM2a plM2a,C,>,plM2a plM2a,D,>,plM2a plM2a,M,>,plM2a plM2a, ,>,plM2s
+plM2s, ,>,plM2b // пропускаем пробел
+plM2b,I,>,plM2b plM2b,V,>,plM2b plM2b,X,>,plM2b plM2b,L,>,plM2b plM2b,C,>,plM2b plM2b,D,>,plM2b plM2b,M,>,plM2b plM2b, ,V,rt2
+
+//.............................//
+
+// // копируем со сдвигом 3 // //
+// ставим звездочку в начало
+st3,I,<,st3 st3,V,<,st3 st3,X,<,st3 st3,L,<,st3 st3,C,<,st3 st3,D,<,st3 st3,M,<,st3 st3, ,*,st3 st3,*,>,cp3a
+// смотрим, что переносить
+cp3a,I,<,smvI3a cp3a,V,<,smvV3a cp3a,X,<,smvX3a cp3a,L,<,smvL3a cp3a,C,<,smvC3a cp3a,D,<,smvD3a cp3a,M,<,smvM3a
+// возвращаемся к звездочке
+rt3,I,<,rt3 rt3,V,<,rt3 rt3,X,<,rt3 rt3,L,<,rt3 rt3,C,<,rt3 rt3,D,<,rt3 rt3,M,<,rt3 rt3, ,<,rt3 rt3,*,>,cp3a
+
+// // перенос I --->
+smvI3a,*,I,smvI3a smvI3a,I,>,schI32   schI32,I,*,plI3a // двигаем звездочку
+plI3a,*,>,plI3a plI3a,I,>,plI3a plI3a,V,>,plI3a plI3a,X,>,plI3a plI3a,L,>,plI3a plI3a,C,>,plI3a plI3a,D,>,plI3a plI3a,M,>,plI3a plI3a, ,>,plI3s
+plI3s, ,>,plI3b // пропускаем пробел
+plI3b,I,>,plI3b plI3b,V,>,plI3b plI3b,X,>,plI3b plI3b,L,>,plI3b plI3b,C,>,plI3b plI3b,D,>,plI3b plI3b,M,>,plI3b plI3b, ,L,rt3
+
+// // перенос V --->
+smvV3a,*,V,smvV3a smvV3a,V,>,schV32   schV32,V,*,plV3a // двигаем звездочку
+plV3a,*,>,plV3a plV3a,I,>,plV3a plV3a,V,>,plV3a plV3a,X,>,plV3a plV3a,L,>,plV3a plV3a,C,>,plV3a plV3a,D,>,plV3a plV3a,M,>,plV3a plV3a, ,>,plV3s
+plV3s, ,>,plV3b // пропускаем пробел
+plV3b,I,>,plV3b plV3b,V,>,plV3b plV3b,X,>,plV3b plV3b,L,>,plV3b plV3b,C,>,plV3b plV3b,D,>,plV3b plV3b,M,>,plV3b plV3b, ,C,rt3
+
+// // перенос X --->
+smvX3a,*,X,smvX3a smvX3a,X,>,schX32   schX32,X,*,plX3a // двигаем звездочку
+plX3a,*,>,plX3a plX3a,I,>,plX3a plX3a,V,>,plX3a plX3a,X,>,plX3a plX3a,L,>,plX3a plX3a,C,>,plX3a plX3a,D,>,plX3a plX3a,M,>,plX3a plX3a, ,>,plX3s
+plX3s, ,>,plX3b // пропускаем пробел
+plX3b,I,>,plX3b plX3b,V,>,plX3b plX3b,X,>,plX3b plX3b,L,>,plX3b plX3b,C,>,plX3b plX3b,D,>,plX3b plX3b,M,>,plX3b plX3b, ,D,rt3
+
+// // перенос L --->
+smvL3a,*,L,smvL3a smvL3a,L,>,schL32   schL32,L,*,plL3a // двигаем звездочку
+plL3a,*,>,plL3a plL3a,I,>,plL3a plL3a,V,>,plL3a plL3a,X,>,plL3a plL3a,L,>,plL3a plL3a,C,>,plL3a plL3a,D,>,plL3a plL3a,M,>,plL3a plL3a, ,>,plL3s
+plL3s, ,>,plL3b // пропускаем пробел
+plL3b,I,>,plL3b plL3b,V,>,plL3b plL3b,X,>,plL3b plL3b,L,>,plL3b plL3b,C,>,plL3b plL3b,D,>,plL3b plL3b,M,>,plL3b plL3b, ,M,rt3
+
+// // перенос C --->
+smvC3a,*,C,smvC3a smvC3a,C,>,schC32   schC32,C,*,plC3a // двигаем звездочку
+plC3a,*,>,plC3a plC3a,I,>,plC3a plC3a,V,>,plC3a plC3a,X,>,plC3a plC3a,L,>,plC3a plC3a,C,>,plC3a plC3a,D,>,plC3a plC3a,M,>,plC3a plC3a, ,>,plC3s
+plC3s, ,>,plC3b // пропускаем пробел
+plC3b,I,>,plC3b plC3b,V,>,plC3b plC3b,X,>,plC3b plC3b,L,>,plC3b plC3b,C,>,plC3b plC3b,D,>,plC3b plC3b,M,>,plC3b plC3b, ,I,rt3
+
+// // перенос D --->
+smvD3a,*,D,smvD3a smvD3a,D,>,schD32   schD32,D,*,plD3a // двигаем звездочку
+plD3a,*,>,plD3a plD3a,I,>,plD3a plD3a,V,>,plD3a plD3a,X,>,plD3a plD3a,L,>,plD3a plD3a,C,>,plD3a plD3a,D,>,plD3a plD3a,M,>,plD3a plD3a, ,>,plD3s
+plD3s, ,>,plD3b // пропускаем пробел
+plD3b,I,>,plD3b plD3b,V,>,plD3b plD3b,X,>,plD3b plD3b,L,>,plD3b plD3b,C,>,plD3b plD3b,D,>,plD3b plD3b,M,>,plD3b plD3b, ,V,rt3
+
+// // перенос M --->
+smvM3a,*,M,smvM3a smvM3a,M,>,schM32   schM32,M,*,plM3a // двигаем звездочку
+plM3a,*,>,plM3a plM3a,I,>,plM3a plM3a,V,>,plM3a plM3a,X,>,plM3a plM3a,L,>,plM3a plM3a,C,>,plM3a plM3a,D,>,plM3a plM3a,M,>,plM3a plM3a, ,>,plM3s
+plM3s, ,>,plM3b // пропускаем пробел
+plM3b,I,>,plM3b plM3b,V,>,plM3b plM3b,X,>,plM3b plM3b,L,>,plM3b plM3b,C,>,plM3b plM3b,D,>,plM3b plM3b,M,>,plM3b plM3b, ,X,rt3
+
+//.............................//
+
+// // копируем со сдвигом 4 // //
+// ставим звездочку в начало
+st4,I,<,st4 st4,V,<,st4 st4,X,<,st4 st4,L,<,st4 st4,C,<,st4 st4,D,<,st4 st4,M,<,st4 st4, ,*,st4 st4,*,>,cp4a
+// смотрим, что переносить
+cp4a,I,<,smvI4a cp4a,V,<,smvV4a cp4a,X,<,smvX4a cp4a,L,<,smvL4a cp4a,C,<,smvC4a cp4a,D,<,smvD4a cp4a,M,<,smvM4a
+// возвращаемся к звездочке
+rt4,I,<,rt4 rt4,V,<,rt4 rt4,X,<,rt4 rt4,L,<,rt4 rt4,C,<,rt4 rt4,D,<,rt4 rt4,M,<,rt4 rt4, ,<,rt4 rt4,*,>,cp4a
+
+// // перенос I --->
+smvI4a,*,I,smvI4a smvI4a,I,>,schI42   schI42,I,*,plI4a // двигаем звездочку
+plI4a,*,>,plI4a plI4a,I,>,plI4a plI4a,V,>,plI4a plI4a,X,>,plI4a plI4a,L,>,plI4a plI4a,C,>,plI4a plI4a,D,>,plI4a plI4a,M,>,plI4a plI4a, ,>,plI4s
+plI4s, ,>,plI4b // пропускаем пробел
+plI4b,I,>,plI4b plI4b,V,>,plI4b plI4b,X,>,plI4b plI4b,L,>,plI4b plI4b,C,>,plI4b plI4b,D,>,plI4b plI4b,M,>,plI4b plI4b, ,C,rt4
+
+// // перенос V --->
+smvV4a,*,V,smvV4a smvV4a,V,>,schV42   schV42,V,*,plV4a // двигаем звездочку
+plV4a,*,>,plV4a plV4a,I,>,plV4a plV4a,V,>,plV4a plV4a,X,>,plV4a plV4a,L,>,plV4a plV4a,C,>,plV4a plV4a,D,>,plV4a plV4a,M,>,plV4a plV4a, ,>,plV4s
+plV4s, ,>,plV4b // пропускаем пробел
+plV4b,I,>,plV4b plV4b,V,>,plV4b plV4b,X,>,plV4b plV4b,L,>,plV4b plV4b,C,>,plV4b plV4b,D,>,plV4b plV4b,M,>,plV4b plV4b, ,D,rt4
+
+// // перенос X --->
+smvX4a,*,X,smvX4a smvX4a,X,>,schX42   schX42,X,*,plX4a // двигаем звездочку
+plX4a,*,>,plX4a plX4a,I,>,plX4a plX4a,V,>,plX4a plX4a,X,>,plX4a plX4a,L,>,plX4a plX4a,C,>,plX4a plX4a,D,>,plX4a plX4a,M,>,plX4a plX4a, ,>,plX4s
+plX4s, ,>,plX4b // пропускаем пробел
+plX4b,I,>,plX4b plX4b,V,>,plX4b plX4b,X,>,plX4b plX4b,L,>,plX4b plX4b,C,>,plX4b plX4b,D,>,plX4b plX4b,M,>,plX4b plX4b, ,M,rt4
+
+// // перенос L --->
+smvL4a,*,L,smvL4a smvL4a,L,>,schL42   schL42,L,*,plL4a // двигаем звездочку
+plL4a,*,>,plL4a plL4a,I,>,plL4a plL4a,V,>,plL4a plL4a,X,>,plL4a plL4a,L,>,plL4a plL4a,C,>,plL4a plL4a,D,>,plL4a plL4a,M,>,plL4a plL4a, ,>,plL4s
+plL4s, ,>,plL4b // пропускаем пробел
+plL4b,I,>,plL4b plL4b,V,>,plL4b plL4b,X,>,plL4b plL4b,L,>,plL4b plL4b,C,>,plL4b plL4b,D,>,plL4b plL4b,M,>,plL4b plL4b, ,I,rt4
+
+// // перенос C --->
+smvC4a,*,C,smvC4a smvC4a,C,>,schC42   schC42,C,*,plC4a // двигаем звездочку
+plC4a,*,>,plC4a plC4a,I,>,plC4a plC4a,V,>,plC4a plC4a,X,>,plC4a plC4a,L,>,plC4a plC4a,C,>,plC4a plC4a,D,>,plC4a plC4a,M,>,plC4a plC4a, ,>,plC4s
+plC4s, ,>,plC4b // пропускаем пробел
+plC4b,I,>,plC4b plC4b,V,>,plC4b plC4b,X,>,plC4b plC4b,L,>,plC4b plC4b,C,>,plC4b plC4b,D,>,plC4b plC4b,M,>,plC4b plC4b, ,V,rt4
+
+// // перенос D --->
+smvD4a,*,D,smvD4a smvD4a,D,>,schD42   schD42,D,*,plD4a // двигаем звездочку
+plD4a,*,>,plD4a plD4a,I,>,plD4a plD4a,V,>,plD4a plD4a,X,>,plD4a plD4a,L,>,plD4a plD4a,C,>,plD4a plD4a,D,>,plD4a plD4a,M,>,plD4a plD4a, ,>,plD4s
+plD4s, ,>,plD4b // пропускаем пробел
+plD4b,I,>,plD4b plD4b,V,>,plD4b plD4b,X,>,plD4b plD4b,L,>,plD4b plD4b,C,>,plD4b plD4b,D,>,plD4b plD4b,M,>,plD4b plD4b, ,X,rt4
+
+// // перенос M --->
+smvM4a,*,M,smvM4a smvM4a,M,>,schM42   schM42,M,*,plM4a // двигаем звездочку
+plM4a,*,>,plM4a plM4a,I,>,plM4a plM4a,V,>,plM4a plM4a,X,>,plM4a plM4a,L,>,plM4a plM4a,C,>,plM4a plM4a,D,>,plM4a plM4a,M,>,plM4a plM4a, ,>,plM4s
+plM4s, ,>,plM4b // пропускаем пробел
+plM4b,I,>,plM4b plM4b,V,>,plM4b plM4b,X,>,plM4b plM4b,L,>,plM4b plM4b,C,>,plM4b plM4b,D,>,plM4b plM4b,M,>,plM4b plM4b, ,L,rt4
+
+//.............................//
+
+// // копируем со сдвигом 5 // //
+// ставим звездочку в начало
+st5,I,<,st5 st5,V,<,st5 st5,X,<,st5 st5,L,<,st5 st5,C,<,st5 st5,D,<,st5 st5,M,<,st5 st5, ,*,st5 st5,*,>,cp5a
+// смотрим, что переносить
+cp5a,I,<,smvI5a cp5a,V,<,smvV5a cp5a,X,<,smvX5a cp5a,L,<,smvL5a cp5a,C,<,smvC5a cp5a,D,<,smvD5a cp5a,M,<,smvM5a
+// возвращаемся к звездочке
+rt5,I,<,rt5 rt5,V,<,rt5 rt5,X,<,rt5 rt5,L,<,rt5 rt5,C,<,rt5 rt5,D,<,rt5 rt5,M,<,rt5 rt5, ,<,rt5 rt5,*,>,cp5a
+
+// // перенос I --->
+smvI5a,*,I,smvI5a smvI5a,I,>,schI52   schI52,I,*,plI5a // двигаем звездочку
+plI5a,*,>,plI5a plI5a,I,>,plI5a plI5a,V,>,plI5a plI5a,X,>,plI5a plI5a,L,>,plI5a plI5a,C,>,plI5a plI5a,D,>,plI5a plI5a,M,>,plI5a plI5a, ,>,plI5s
+plI5s, ,>,plI5b // пропускаем пробел
+plI5b,I,>,plI5b plI5b,V,>,plI5b plI5b,X,>,plI5b plI5b,L,>,plI5b plI5b,C,>,plI5b plI5b,D,>,plI5b plI5b,M,>,plI5b plI5b, ,D,rt5
+
+// // перенос V --->
+smvV5a,*,V,smvV5a smvV5a,V,>,schV52   schV52,V,*,plV5a // двигаем звездочку
+plV5a,*,>,plV5a plV5a,I,>,plV5a plV5a,V,>,plV5a plV5a,X,>,plV5a plV5a,L,>,plV5a plV5a,C,>,plV5a plV5a,D,>,plV5a plV5a,M,>,plV5a plV5a, ,>,plV5s
+plV5s, ,>,plV5b // пропускаем пробел
+plV5b,I,>,plV5b plV5b,V,>,plV5b plV5b,X,>,plV5b plV5b,L,>,plV5b plV5b,C,>,plV5b plV5b,D,>,plV5b plV5b,M,>,plV5b plV5b, ,M,rt5
+
+// // перенос X --->
+smvX5a,*,X,smvX5a smvX5a,X,>,schX52   schX52,X,*,plX5a // двигаем звездочку
+plX5a,*,>,plX5a plX5a,I,>,plX5a plX5a,V,>,plX5a plX5a,X,>,plX5a plX5a,L,>,plX5a plX5a,C,>,plX5a plX5a,D,>,plX5a plX5a,M,>,plX5a plX5a, ,>,plX5s
+plX5s, ,>,plX5b // пропускаем пробел
+plX5b,I,>,plX5b plX5b,V,>,plX5b plX5b,X,>,plX5b plX5b,L,>,plX5b plX5b,C,>,plX5b plX5b,D,>,plX5b plX5b,M,>,plX5b plX5b, ,I,rt5
+
+// // перенос L --->
+smvL5a,*,L,smvL5a smvL5a,L,>,schL52   schL52,L,*,plL5a // двигаем звездочку
+plL5a,*,>,plL5a plL5a,I,>,plL5a plL5a,V,>,plL5a plL5a,X,>,plL5a plL5a,L,>,plL5a plL5a,C,>,plL5a plL5a,D,>,plL5a plL5a,M,>,plL5a plL5a, ,>,plL5s
+plL5s, ,>,plL5b // пропускаем пробел
+plL5b,I,>,plL5b plL5b,V,>,plL5b plL5b,X,>,plL5b plL5b,L,>,plL5b plL5b,C,>,plL5b plL5b,D,>,plL5b plL5b,M,>,plL5b plL5b, ,V,rt5
+
+// // перенос C --->
+smvC5a,*,C,smvC5a smvC5a,C,>,schC52   schC52,C,*,plC5a // двигаем звездочку
+plC5a,*,>,plC5a plC5a,I,>,plC5a plC5a,V,>,plC5a plC5a,X,>,plC5a plC5a,L,>,plC5a plC5a,C,>,plC5a plC5a,D,>,plC5a plC5a,M,>,plC5a plC5a, ,>,plC5s
+plC5s, ,>,plC5b // пропускаем пробел
+plC5b,I,>,plC5b plC5b,V,>,plC5b plC5b,X,>,plC5b plC5b,L,>,plC5b plC5b,C,>,plC5b plC5b,D,>,plC5b plC5b,M,>,plC5b plC5b, ,X,rt5
+
+// // перенос D --->
+smvD5a,*,D,smvD5a smvD5a,D,>,schD52   schD52,D,*,plD5a // двигаем звездочку
+plD5a,*,>,plD5a plD5a,I,>,plD5a plD5a,V,>,plD5a plD5a,X,>,plD5a plD5a,L,>,plD5a plD5a,C,>,plD5a plD5a,D,>,plD5a plD5a,M,>,plD5a plD5a, ,>,plD5s
+plD5s, ,>,plD5b // пропускаем пробел
+plD5b,I,>,plD5b plD5b,V,>,plD5b plD5b,X,>,plD5b plD5b,L,>,plD5b plD5b,C,>,plD5b plD5b,D,>,plD5b plD5b,M,>,plD5b plD5b, ,L,rt5
+
+// // перенос M --->
+smvM5a,*,M,smvM5a smvM5a,M,>,schM52   schM52,M,*,plM5a // двигаем звездочку
+plM5a,*,>,plM5a plM5a,I,>,plM5a plM5a,V,>,plM5a plM5a,X,>,plM5a plM5a,L,>,plM5a plM5a,C,>,plM5a plM5a,D,>,plM5a plM5a,M,>,plM5a plM5a, ,>,plM5s
+plM5s, ,>,plM5b // пропускаем пробел
+plM5b,I,>,plM5b plM5b,V,>,plM5b plM5b,X,>,plM5b plM5b,L,>,plM5b plM5b,C,>,plM5b plM5b,D,>,plM5b plM5b,M,>,plM5b plM5b, ,C,rt5
+
+//.............................//
+
+// // копируем со сдвигом 6 // //
+// ставим звездочку в начало
+st6,I,<,st6 st6,V,<,st6 st6,X,<,st6 st6,L,<,st6 st6,C,<,st6 st6,D,<,st6 st6,M,<,st6 st6, ,*,st6 st6,*,>,cp6a
+// смотрим, что переносить
+cp6a,I,<,smvI6a cp6a,V,<,smvV6a cp6a,X,<,smvX6a cp6a,L,<,smvL6a cp6a,C,<,smvC6a cp6a,D,<,smvD6a cp6a,M,<,smvM6a
+// возвращаемся к звездочке
+rt6,I,<,rt6 rt6,V,<,rt6 rt6,X,<,rt6 rt6,L,<,rt6 rt6,C,<,rt6 rt6,D,<,rt6 rt6,M,<,rt6 rt6, ,<,rt6 rt6,*,>,cp6a
+
+// // перенос I --->
+smvI6a,*,I,smvI6a smvI6a,I,>,schI62   schI62,I,*,plI6a // двигаем звездочку
+plI6a,*,>,plI6a plI6a,I,>,plI6a plI6a,V,>,plI6a plI6a,X,>,plI6a plI6a,L,>,plI6a plI6a,C,>,plI6a plI6a,D,>,plI6a plI6a,M,>,plI6a plI6a, ,>,plI6s
+plI6s, ,>,plI6b // пропускаем пробел
+plI6b,I,>,plI6b plI6b,V,>,plI6b plI6b,X,>,plI6b plI6b,L,>,plI6b plI6b,C,>,plI6b plI6b,D,>,plI6b plI6b,M,>,plI6b plI6b, ,M,rt6
+
+// // перенос V --->
+smvV6a,*,V,smvV6a smvV6a,V,>,schV62   schV62,V,*,plV6a // двигаем звездочку
+plV6a,*,>,plV6a plV6a,I,>,plV6a plV6a,V,>,plV6a plV6a,X,>,plV6a plV6a,L,>,plV6a plV6a,C,>,plV6a plV6a,D,>,plV6a plV6a,M,>,plV6a plV6a, ,>,plV6s
+plV6s, ,>,plV6b // пропускаем пробел
+plV6b,I,>,plV6b plV6b,V,>,plV6b plV6b,X,>,plV6b plV6b,L,>,plV6b plV6b,C,>,plV6b plV6b,D,>,plV6b plV6b,M,>,plV6b plV6b, ,I,rt6
+
+// // перенос X --->
+smvX6a,*,X,smvX6a smvX6a,X,>,schX62   schX62,X,*,plX6a // двигаем звездочку
+plX6a,*,>,plX6a plX6a,I,>,plX6a plX6a,V,>,plX6a plX6a,X,>,plX6a plX6a,L,>,plX6a plX6a,C,>,plX6a plX6a,D,>,plX6a plX6a,M,>,plX6a plX6a, ,>,plX6s
+plX6s, ,>,plX6b // пропускаем пробел
+plX6b,I,>,plX6b plX6b,V,>,plX6b plX6b,X,>,plX6b plX6b,L,>,plX6b plX6b,C,>,plX6b plX6b,D,>,plX6b plX6b,M,>,plX6b plX6b, ,V,rt6
+
+// // перенос L --->
+smvL6a,*,L,smvL6a smvL6a,L,>,schL62   schL62,L,*,plL6a // двигаем звездочку
+plL6a,*,>,plL6a plL6a,I,>,plL6a plL6a,V,>,plL6a plL6a,X,>,plL6a plL6a,L,>,plL6a plL6a,C,>,plL6a plL6a,D,>,plL6a plL6a,M,>,plL6a plL6a, ,>,plL6s
+plL6s, ,>,plL6b // пропускаем пробел
+plL6b,I,>,plL6b plL6b,V,>,plL6b plL6b,X,>,plL6b plL6b,L,>,plL6b plL6b,C,>,plL6b plL6b,D,>,plL6b plL6b,M,>,plL6b plL6b, ,X,rt6
+
+// // перенос C --->
+smvC6a,*,C,smvC6a smvC6a,C,>,schC62   schC62,C,*,plC6a // двигаем звездочку
+plC6a,*,>,plC6a plC6a,I,>,plC6a plC6a,V,>,plC6a plC6a,X,>,plC6a plC6a,L,>,plC6a plC6a,C,>,plC6a plC6a,D,>,plC6a plC6a,M,>,plC6a plC6a, ,>,plC6s
+plC6s, ,>,plC6b // пропускаем пробел
+plC6b,I,>,plC6b plC6b,V,>,plC6b plC6b,X,>,plC6b plC6b,L,>,plC6b plC6b,C,>,plC6b plC6b,D,>,plC6b plC6b,M,>,plC6b plC6b, ,L,rt6
+
+// // перенос D --->
+smvD6a,*,D,smvD6a smvD6a,D,>,schD62   schD62,D,*,plD6a // двигаем звездочку
+plD6a,*,>,plD6a plD6a,I,>,plD6a plD6a,V,>,plD6a plD6a,X,>,plD6a plD6a,L,>,plD6a plD6a,C,>,plD6a plD6a,D,>,plD6a plD6a,M,>,plD6a plD6a, ,>,plD6s
+plD6s, ,>,plD6b // пропускаем пробел
+plD6b,I,>,plD6b plD6b,V,>,plD6b plD6b,X,>,plD6b plD6b,L,>,plD6b plD6b,C,>,plD6b plD6b,D,>,plD6b plD6b,M,>,plD6b plD6b, ,C,rt6
+
+// // перенос M --->
+smvM6a,*,M,smvM6a smvM6a,M,>,schM62   schM62,M,*,plM6a // двигаем звездочку
+plM6a,*,>,plM6a plM6a,I,>,plM6a plM6a,V,>,plM6a plM6a,X,>,plM6a plM6a,L,>,plM6a plM6a,C,>,plM6a plM6a,D,>,plM6a plM6a,M,>,plM6a plM6a, ,>,plM6s
+plM6s, ,>,plM6b // пропускаем пробел
+plM6b,I,>,plM6b plM6b,V,>,plM6b plM6b,X,>,plM6b plM6b,L,>,plM6b plM6b,C,>,plM6b plM6b,D,>,plM6b plM6b,M,>,plM6b plM6b, ,D,rt6
+
+
+
+// // завершение // //
+cp0a, ,<,fin cp1a, ,<,fin cp2a, ,<,fin cp3a, ,<,fin cp4a, ,<,fin cp5a, ,<,fin cp6a, ,<,fin   fin,*, ,fin fin, ,#,fin
