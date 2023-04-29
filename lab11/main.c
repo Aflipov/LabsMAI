@@ -1,27 +1,99 @@
 #include <stdio.h>
-#include <math.h>
+#include <assert.h>
+#include <string.h>
 
-int to_dec(int digit_1, int digit_2, int digit_3, int digit_4, int digit_5) {
-    int result = digit_1 * pow(5, 4) + digit_2 * pow(5, 3) + digit_3 * pow(5, 2) + digit_4 * pow(5, 1) + digit_5 * pow(5, 0);
-    return result;
+typedef enum State {
+    START,    // переводим число в десятичную си и выводим на экран
+    IS_FINAL,    // проверяем на последнее число, удовлетворяющее устловию (44444)
+    INCREASE,    // увеличиваем число
+    STOP    // останавливаем программу
+} State;
+
+int Base5to10(int a) {
+    int k = 1;
+    int a10 = 0;
+    while (a) {
+        a10 += k * (a % 10);
+        k *= 5;
+        a /= 10;
+    }
+    return a10;
+}
+
+void Test() {
+    assert(Base5to10(1234) == 194);
+    assert(Base5to10(100) == 25);
+    assert(Base5to10(414) == 109);
+    assert(Base5to10(11211) == 806);
+}
+
+void main_function(int n) {
+    int max_length = n;
+    char tape[max_length];
+    memset(tape, '3', max_length); // лента, на которой будет выполнятся программа
+    int length;    // индекс текущей ячейки на ленте
+    int is_final_flag;
+    int dec_munber;
+
+    State state = START;
+
+    while (state != STOP) {
+        switch (state) {
+            case START:
+                length = 0;
+                int in_number = 0;
+                while (length != max_length) {
+                    in_number = in_number * 10 + tape[length] - '0';
+                    length++;
+                }
+                printf("%d (base 5)", in_number);
+                dec_munber = Base5to10(in_number);
+                printf(" = %d (base 10)\n", dec_munber);
+
+            case IS_FINAL:
+                is_final_flag = 1;
+                length = 0;
+                while (length != max_length) {
+                    if (tape[length] != '4') {
+                        is_final_flag = 0;
+                        break;
+                    }
+                    ++length;
+                }
+                if (is_final_flag == 1) {
+                    state = STOP;
+                    break;
+                }
+                state = INCREASE;
+
+            case INCREASE:
+                length = max_length;
+                while (length != 0) {
+                    length--;
+                    if (tape[length] == '3') {
+                        tape[length] = '4';
+                        state = START;
+                        break;
+                    } else {
+                        tape[length] = '3';
+                    }
+                }
+
+            default:
+                break;
+        }
+    }
+    printf("\n");
 }
 
 int main() {
-    int cnt = 0;
 
-    printf("    Number system:\nfivefold\tdecimal\n");
-    for (int d1 = 3; d1 < 6; ++d1) {
-        for (int d2 = 3; d2 < 6; ++d2) {
-            for (int d3 = 3; d3 < 6; ++d3) {
-                for (int d4 = 3; d4 < 6; ++d4) {
-                    for (int d5 = 3; d5 < 6; ++d5) {
-                        printf(" %d%d%d%d%d\t   =\t", d1, d2, d3, d4, d5);
-                        printf(" %d\n", to_dec(d1, d2, d3, d4, d5));
-                        ++cnt;
-                    }
-                }
-            }
-        }
+    Test();
+
+    for (int i = 1; i <= 8; ++i) {
+        printf("For %d length:\n", i);
+        main_function(i);
     }
-    printf("\nNumbers found: %d", cnt);
+
+    return 1;
 }
